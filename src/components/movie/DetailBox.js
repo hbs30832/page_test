@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styled, { css } from "styled-components";
 import { getMovieDetail } from "../../custom-axios";
 import { IoClose } from "react-icons/io5";
@@ -11,6 +11,13 @@ export default function DetailBox() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  const preventScroll = (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     getMovieDetail(id).then((res) => {
       setData(res.data);
@@ -18,10 +25,17 @@ export default function DetailBox() {
     });
   }, [id]);
 
+  useEffect(() => {
+    window.addEventListener("wheel", preventScroll, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", preventScroll);
+    };
+  }, []);
+
   const imgUrl = data && "https://image.tmdb.org/t/p/w500" + data.poster_path;
   if (!data) return <Loading />;
   return (
-    <BgBlock>
+    <BgBlock onClick={() => navigate("/")}>
       <Block isLoading={loading}>
         <ImgBox>
           <img src={imgUrl} alt="" />
@@ -32,7 +46,7 @@ export default function DetailBox() {
           <OverView>{data.overview}</OverView>
         </ContentBox>
         <BtnClose>
-          <Link to="/home">
+          <Link to="/">
             <IoClose size={24} />
           </Link>
         </BtnClose>
@@ -45,7 +59,7 @@ const BgBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;

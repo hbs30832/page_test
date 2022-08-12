@@ -35,13 +35,13 @@ export async function getMovieDetail(id) {
 }
 
 export const getSearch = async (query, page) => {
-  console.log("검색");
   try {
     let data = await instance.get("/search/movie", {
       params: {
         language: "ko-KR",
         query,
         page,
+        include_adult: false,
       },
     });
     return data;
