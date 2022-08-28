@@ -1,11 +1,11 @@
-name: Create Environment Variable file
+name: Automacally Deploy
 
 # Controls when the workflow will run
 on:
 
   push: 
     branches:
-      - gh-pages
+      - main
     
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,3 +23,6 @@ jobs:
           echo "REACT_APP_TMDB_API_KEY=$REACT_APP_TMDB_API_KEY" >> .env
         env: 
           REACT_APP_TMDB_API_KEY: ${{ secrets.REACT_APP_TMDB_API_KEY }}
+        
+      - name : Build React App
+        run : npm run build
