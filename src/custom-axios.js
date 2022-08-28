@@ -7,7 +7,7 @@ const instance = axios.create({
   },
 });
 
-console.log(process.env.REACT_APP_TMDB_API_KEY);
+console.log("test", process.env.REACT_APP_TMDB_API_KEY);
 
 export async function getPopularMovie() {
   try {
