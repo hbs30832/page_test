@@ -21,4 +21,4 @@ jobs:
         run: | 
           echo "REACT_APP_TMDB_API_KEY=$REACT_APP_TMDB_API_KEY" >> .env
         env: 
-          TMDB_API_KEY=$TMDB_API_KEY: ${{ secrets.REACT_APP_TMDB_API_KEY=$TMDB_API_KEY }}
+          TMDB_API_KEY=$TMDB_API_KEY: ${{ secrets.REACT_APP_TMDB_API_KEY=$REACT_APP_TMDB_API_KEY }}
