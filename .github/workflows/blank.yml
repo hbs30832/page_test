@@ -1,0 +1,24 @@
+name: Create Environment Variable file
+
+# Controls when the workflow will run
+on:
+
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Gnerate Environment Variables File for Production
+        run: | 
+          echo "TMDB_API_KEY=$TMDB_API_KEY" >> .env
+        env: 
+          TMDB_API_KEY=$TMDB_API_KEY: ${{ secrets.TMDB_API_KEY=$TMDB_API_KEY }}
